@@ -1,28 +1,12 @@
 
-import { useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 import AboutUs from "./AboutUs";
+import ProductList from "./ProductList";
+import CartItem from "./CartItem";
 
-function App() {
-  const [showPlants, setShowPlants] = useState(false);
-
-  if (showPlants) {
-    return (
-      <div className="landing-page">
-        <div className="landing-content">
-          <h1>Welcome to Paradise Nursery</h1>
-          <p>Your favorite place to discover beautiful houseplants.</p>
-          <button
-            className="get-started-button"
-            onClick={() => setShowPlants(false)}
-          >
-            Back to Home
-          </button>
-          <AboutUs />
-        </div>
-      </div>
-    );
-  }
+function HomePage() {
+  const navigate = useNavigate();
 
   return (
     <main className="landing-page">
@@ -34,13 +18,25 @@ function App() {
         </p>
         <button
           className="get-started-button"
-          onClick={() => setShowPlants(true)}
+          onClick={() => navigate("/plants")}
         >
           Get Started
         </button>
       </div>
+      <AboutUs />
     </main>
   );
 }
 
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/plants" element={<ProductList />} />
+      <Route path="/cart" element={<CartItem />} />
+    </Routes>
+  );
+}
+
 export default App;
+
